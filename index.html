@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:;" />
+  <title>Pomodoro Duck</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Header / Duck -->
+    <div class="duck-area">
+      <svg class="duck" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Body -->
+        <ellipse class="duck-body" cx="60" cy="60" rx="35" ry="28" fill="#f4c430" />
+        <!-- Head -->
+        <circle class="duck-head" cx="60" cy="38" r="22" fill="#f4c430" />
+        <!-- Eye -->
+        <circle cx="68" cy="34" r="5" fill="#2b1f17" />
+        <circle cx="69" cy="33" r="1.5" fill="#fff" />
+        <!-- Beak -->
+        <path class="duck-beak" d="M78 36 Q88 36 88 40 Q88 44 78 44 Z" fill="#e67e22" />
+        <!-- Wing -->
+        <ellipse class="duck-wing" cx="45" cy="60" rx="18" ry="12" fill="#e5b82e" />
+        <!-- Foot -->
+        <ellipse cx="50" cy="86" rx="8" ry="4" fill="#e67e22" />
+        <ellipse cx="70" cy="86" rx="8" ry="4" fill="#e67e22" />
+      </svg>
+      <div class="duck-bubble" id="duckBubble">Ready to focus?</div>
+    </div>
+
+    <!-- Phase label -->
+    <div class="phase" id="phaseLabel">Work</div>
+
+    <!-- Timer -->
+    <div class="timer" id="timerDisplay" aria-live="polite">25:00</div>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="btn btn-primary" id="btnToggle" title="Space" aria-keyshortcuts="Space">Start</button>
+      <button class="btn btn-secondary" id="btnReset" title="R" aria-keyshortcuts="R">Reset</button>
+      <button class="btn btn-secondary" id="btnSkip" title="S" aria-keyshortcuts="S">Skip</button>
+    </div>
+
+    <!-- Session counter -->
+    <div class="counter">
+      <span id="sessionCount">0</span> pomodoros today
+      <span class="streak" id="streakDots" aria-hidden="true"></span>
+    </div>
+
+    <!-- Toggles row -->
+    <div class="toggles">
+      <button class="icon-btn" id="btnSound" title="Sound on/off" aria-label="Toggle sound" aria-pressed="false">🔊</button>
+      <button class="icon-btn" id="btnNotif" title="Desktop notifications" aria-label="Toggle notifications" aria-pressed="false">🔔</button>
+      <button class="icon-btn" id="btnFloat" title="Float on top" aria-label="Toggle float on top" aria-pressed="false">📌</button>
+      <button class="icon-btn" id="btnDark" title="Dark mode" aria-label="Toggle dark mode" aria-pressed="false">🌙</button>
+      <button class="icon-btn" id="btnSettings" title="Settings" aria-label="Open settings">⚙️</button>
+    </div>
+
+    <!-- Settings panel (hidden by default) -->
+    <div class="panel panel-hidden" id="settingsPanel" role="dialog" aria-label="Settings">
+      <div class="panel-header">
+        <span>Settings</span>
+        <button class="panel-close" id="btnCloseSettings" aria-label="Close settings">×</button>
+      </div>
+      <div class="field">
+        <label for="workMin">Work (min)</label>
+        <input type="number" id="workMin" value="25" min="1" max="120" />
+      </div>
+      <div class="field">
+        <label for="shortMin">Short Break (min)</label>
+        <input type="number" id="shortMin" value="5" min="1" max="60" />
+      </div>
+      <div class="field">
+        <label for="longMin">Long Break (min)</label>
+        <input type="number" id="longMin" value="15" min="1" max="120" />
+      </div>
+      <div class="field">
+        <label for="pomosBeforeLong">Long break after</label>
+        <input type="number" id="pomosBeforeLong" value="4" min="1" max="20" />
+        <span> pomodoros</span>
+      </div>
+      <div class="field">
+        <label for="volumeSlider">Sound volume</label>
+        <input type="range" id="volumeSlider" min="0" max="100" value="50" />
+      </div>
+    </div>
+
+    <!-- History panel (hidden by default) -->
+    <div class="panel panel-hidden" id="historyPanel" role="dialog" aria-label="Today's sessions">
+      <div class="panel-header">
+        <span>Today's Sessions</span>
+        <button class="panel-close" id="btnCloseHistory" aria-label="Close history">×</button>
+      </div>
+      <div class="history-list" id="historyList">
+        <div class="history-empty">No sessions yet today.</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <button class="footer-link" id="btnHistory">History</button>
+      <span class="footer-dot" aria-hidden="true">•</span>
+      <button class="footer-link" id="btnClearHistory">Clear</button>
+      <span class="footer-dot" aria-hidden="true">•</span>
+      <button class="footer-link quit" id="btnQuit" title="Quit app">Quit</button>
+    </div>
+  </div>
+
+  <script src="storage.js"></script>
+  <script src="audio.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

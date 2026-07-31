@@ -1,0 +1,54 @@
+{
+  "name": "pomodoro-duck",
+  "version": "1.2.0",
+  "description": "Pomodoro timer with a duck mascot, lives in your Mac menu bar",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build-mac": "electron-builder --mac",
+    "build-win": "electron-builder --win",
+    "build-linux": "electron-builder --linux"
+  },
+  "build": {
+    "appId": "com.oz.pomodoro-duck",
+    "productName": "Pomodoro Duck",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "timer.js",
+      "preload.js",
+      "storage.js",
+      "audio.js",
+      "renderer.js",
+      "index.html",
+      "style.css",
+      "package.json"
+    ],
+    "artifactName": "Pomodoro-Duck-v${version}-macOS-${arch}.${ext}",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^26.0.12"
+  },
+  "allowScripts": {
+    "electron@31.7.7": true,
+    "electron-builder@26.0.12": true,
+    "electron-winstaller@5.4.0": true
+  }
+}

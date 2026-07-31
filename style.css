@@ -1,0 +1,348 @@
+/* ── Reset ── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Theme variables ── */
+:root {
+  --bg: #f8f4ec;
+  --bg-soft: #efe7d8;
+  --ink: #2b1f17;
+  --ink-light: #5c4a3a;
+  --accent: #b14a25;
+  --accent-hover: #8f3a1b;
+  --border: #d9cdb8;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(43,31,23,0.08);
+}
+
+.dark {
+  --bg: #1e1812;
+  --bg-soft: #2a231b;
+  --ink: #e8dfd4;
+  --ink-light: #a89b8c;
+  --accent: #d46940;
+  --accent-hover: #e87a50;
+  --border: #3a3228;
+  --shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+/* ── Base ── */
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  height: 100%;
+  gap: 8px;
+}
+
+/* ── Duck ── */
+.duck-area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-app-region: no-drag;
+}
+
+.duck {
+  width: 80px;
+  height: 68px;
+  transition: transform 0.3s ease;
+}
+
+.duck.waddle {
+  animation: waddle 0.6s ease-in-out infinite alternate;
+}
+
+.duck.nap {
+  animation: nap 2s ease-in-out infinite;
+}
+
+@keyframes waddle {
+  0% { transform: rotate(-3deg) translateY(0); }
+  100% { transform: rotate(3deg) translateY(-2px); }
+}
+
+@keyframes nap {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(5deg); }
+}
+
+.duck-bubble {
+  font-size: 11px;
+  color: var(--ink-light);
+  background: var(--bg-soft);
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-top: 4px;
+  max-width: 200px;
+  text-align: center;
+  line-height: 1.3;
+  opacity: 0.8;
+}
+
+/* ── Phase ── */
+.phase {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  margin-top: 2px;
+}
+
+/* ── Timer ── */
+.timer {
+  font-size: 56px;
+  font-weight: 200;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin: 4px 0;
+}
+
+.timer.running {
+  color: var(--accent);
+}
+
+/* ── Progress bar ── */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 4px 0 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.3s linear;
+}
+
+/* ── Controls ── */
+.controls {
+  display: flex;
+  gap: 8px;
+  -webkit-app-region: no-drag;
+}
+
+.btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  -webkit-app-region: no-drag;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--bg-soft);
+  color: var(--ink);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+}
+
+/* ── Counter ── */
+.counter {
+  font-size: 12px;
+  color: var(--ink-light);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.streak {
+  display: flex;
+  gap: 3px;
+}
+
+.streak-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.streak-dot.empty {
+  background: var(--border);
+}
+
+/* ── Toggles ── */
+.toggles {
+  display: flex;
+  gap: 6px;
+  -webkit-app-region: no-drag;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: var(--bg-soft);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  opacity: 0.6;
+}
+
+.icon-btn:hover { opacity: 1; }
+.icon-btn.active { opacity: 1; background: var(--accent); color: #fff; }
+.icon-btn.muted { opacity: 0.3; }
+
+/* ── Panels ── */
+.panel {
+  position: absolute;
+  top: 44px;
+  left: 12px;
+  right: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow);
+  z-index: 10;
+  -webkit-app-region: no-drag;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.panel-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.panel-close {
+  border: none;
+  background: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--ink-light);
+  line-height: 1;
+}
+
+.panel-close:hover { color: var(--ink); }
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.field label {
+  flex: 1;
+  min-width: 90px;
+}
+
+.field input[type="number"] {
+  width: 50px;
+  padding: 4px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-soft);
+  color: var(--ink);
+  font-size: 13px;
+  text-align: center;
+}
+
+.field input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent);
+}
+
+/* ── History ── */
+.history-list {
+  max-height: 140px;
+  overflow-y: auto;
+  font-size: 12px;
+}
+
+.history-empty {
+  color: var(--ink-light);
+  text-align: center;
+  padding: 12px 0;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-item:last-child { border-bottom: none; }
+
+.history-time { color: var(--ink-light); }
+
+/* ── Footer ── */
+.footer {
+  margin-top: auto;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 11px;
+  color: var(--ink-light);
+  -webkit-app-region: no-drag;
+}
+
+.footer-link {
+  border: none;
+  background: none;
+  color: var(--ink-light);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+}
+
+.footer-link:hover { color: var(--accent); }
+.footer-link.quit:hover { color: #c0392b; }
+
+.footer-dot { opacity: 0.4; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
