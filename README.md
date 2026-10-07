@@ -1,5 +1,9 @@
 # 🦆 Pomodoro Duck
 
+![Pomodoro Duck popup: start, skip to a break, dark mode](docs/preview.gif)
+
+*The popup: start a work session, skip to a short break, switch to dark mode.*
+
 A warm, minimal Pomodoro timer that lives in your Mac menu bar.
 
 ## Features
